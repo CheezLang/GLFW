@@ -1,0 +1,41 @@
+use import glfw
+
+use import std.array
+use import std.string
+
+io :: import std.io
+
+glfw_error_callback :: (error: i32, description: ^mut char8) {
+    desc := String.from_cstring(description)
+    io.formatln("Glfw Error {}: {}", [error, desc.slice()])
+}
+
+Main :: () {
+    glfwSetErrorCallback(glfw_error_callback)
+
+    if glfwInit() == 0 {
+        io.println("Failed to initialize GLFW")
+        return
+    }
+    defer glfwTerminate()
+
+    glfwWindowHint(GLFW_VISIBLE, 0)
+    glfwWindowHint(GLFW_RESIZABLE, 1)
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API)
+
+    vidmode := glfwGetVideoMode(glfwGetPrimaryMonitor())
+    window := glfwCreateWindow(400, 400, "GLFW Test"c, null, null)
+    if window == null {
+        io.println("Failed to create window")
+        return
+    }
+    defer glfwDestroyWindow(window)
+
+    // show window
+    glfwShowWindow(window)
+
+    while glfwWindowShouldClose(window) == 0 {
+        glfwPollEvents()
+        // glfwSwapBuffers(window)
+    }
+}
