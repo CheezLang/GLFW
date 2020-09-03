@@ -819,8 +819,8 @@ glfwVulkanSupported :: () -> i32 {
     __c__glfwVulkanSupported(^result)
     return result
 }
-glfwGetRequiredInstanceExtensions :: (_count: ^mut uint32_t) -> ^mut ^mut char8 {
-    mut result : ^mut ^mut char8 = default
+glfwGetRequiredInstanceExtensions :: (_count: ^mut uint32_t) -> ^^char8 {
+    mut result : ^^char8 = default
     __c__glfwGetRequiredInstanceExtensions(^result, _count)
     return result
 }
@@ -946,4 +946,4 @@ __c__glfwSwapInterval :: (_interval: i32);
 __c__glfwExtensionSupported :: (ret: ^mut i32, _extension: ^mut char8);
 __c__glfwGetProcAddress :: (ret: ^mut GLFWglproc, _procname: ^mut char8);
 __c__glfwVulkanSupported :: (ret: ^mut i32);
-__c__glfwGetRequiredInstanceExtensions :: (ret: ^mut ^mut ^mut char8, _count: ^mut uint32_t);
+__c__glfwGetRequiredInstanceExtensions :: (ret: ^mut ^^char8, _count: ^mut uint32_t);
